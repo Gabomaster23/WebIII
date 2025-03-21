@@ -1,3 +1,10 @@
+<?php
+require 'conexion.php';
+
+$sql = "SELECT * FROM propiedades WHERE estado = 'Disponible'";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,14 +21,13 @@
             <div class="nav-item">
                 <a href="#">Servicios ▾</a>
                 <ul class="submenu">
-                    <li><a href="calculadoraHipoteca.html">Calculadora de Hipoteca</a></li>
-                    <li><a href="ofertas.html">Ofertas</a></li>
+                    <li><a href="calculadoraHipoteca.php">Calculadora de Hipoteca</a></li>
+                    <li><a href="ofertas.php">Ofertas</a></li>
                 </ul>
             </div>
-            <a href="index.html">Inicio</a>
-            <!-- Contenedor para el menú desplegable -->
-            <a href="contacto.html">Contacto</a>
-            <a href="login.html">Iniciar sesión</a>
+            <a href="index.php">Inicio</a>
+            <a href="contacto.php">Contacto</a>
+            <a href="login.php">Iniciar sesión</a>
         </nav>
     </div>
 
@@ -36,7 +42,7 @@
         </div>
 
         <div class="properties">
-            <!-- Tarjeta de Propiedad 1 -->
+            <!-- Propiedades Estáticas -->
             <div class="property-card">
                 <img src="imgs/casa1.JPG" alt="Casa Solara">
                 <div class="info">
@@ -54,14 +60,13 @@
                 </div>
             </div>
 
-            <!-- Tarjeta de Propiedad 2 -->
             <div class="property-card">
                 <img src="imgs/casa2.JPG" alt="Residencial Las Palmas">
                 <div class="info">
                     <div class="category">Casa</div>
                     <div class="title-container">
                         <h3>Residencial Las Palmas</h3>
-                        <a href="propiedad.html" class="expand-icon">↗</a>
+                        <a href="propiedad.php" class="expand-icon">↗</a>
                     </div>
                     <p>Amplia casa de tres recámaras y dos baños, en una zona tranquila con acceso a parques y escuelas cercanas.</p>
                     <div class="price">$950,000 MXN</div>
@@ -72,7 +77,6 @@
                 </div>
             </div>
 
-            <!-- Tarjeta de Propiedad 3 -->
             <div class="property-card">
                 <img src="imgs/casa3.JPG" alt="Casa Lago Azul">
                 <div class="info">
@@ -89,8 +93,29 @@
                     </div>
                 </div>
             </div>
+
+            <!-- AQUI VA EL PHP -->
+            <?php while ($row = $result->fetch_assoc()) { ?>
+                <div class="property-card">
+                    <img src="imgs/default-house.jpg" alt="<?php echo $row['titulo']; ?>">
+                    <div class="info">
+                        <div class="category"><?php echo $row['tipo']; ?></div>
+                        <div class="title-container">
+                            <h3><?php echo $row['titulo']; ?></h3>
+                            <a href="propiedad.php?id=<?php echo $row['id']; ?>" class="expand-icon">↗</a>
+                        </div>
+                        <p><?php echo $row['descripcion']; ?></p>
+                        <div class="price">$<?php echo number_format($row['precio'], 2); ?> MXN</div>
+                        <div class="details">
+                            <span>🛏️ <?php echo $row['num_habitaciones'] ?? 0; ?></span>
+                            <span>🚽 <?php echo $row['num_banos'] ?? 0; ?></span>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
     </main>
+
 </body>
 <script src="js/general.js"></script>
 </html>

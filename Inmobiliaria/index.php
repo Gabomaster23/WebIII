@@ -12,19 +12,19 @@
     <img src="imgs/logo.png" alt="" class="logo">
     <!-- Menú de navegación -->
     <nav class="navegacion-principal contenedor" id="navegacion-principal">
-        <a href="propiedades.html">Propiedades</a>
+        <a href="propiedades.php">Propiedades</a>
 
         <!-- Contenedor para el menú desplegable -->
         <div class="nav-item">
           <a href="#">Servicios ▾</a>
           <ul class="submenu">
-              <li><a href="calculadoraHipoteca.html">Calculadora de Hipoteca</a></li>
-              <li><a href="ofertas.html">Ofertas</a></li>
+              <li><a href="calculadoraHipoteca.php">Calculadora de Hipoteca</a></li>
+              <li><a href="ofertas.php">Ofertas</a></li>
           </ul>
       </div>
 
-        <a href="contacto.html">Contacto</a>
-        <a href="login.html">Iniciar sesión</a>
+        <a href="contacto.php">Contacto</a>
+        <a href="login.php">Iniciar sesión</a>
     </nav>
 </div>
 

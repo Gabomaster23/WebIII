@@ -11,17 +11,17 @@
     <div class="nav-head">
         <img src="imgs/logo.png" alt="" class="logo">
         <nav class="navegacion-principal contenedor">
-          <a href="index.html">Inicio</a>
-          <a href="propiedades.html">Propiedades</a>
+          <a href="index.php">Inicio</a>
+          <a href="propiedades.php">Propiedades</a>
           <!-- Contenedor para el menú desplegable -->
           <div class="nav-item">
             <a href="#">Servicios</a>
             <ul class="submenu">
-                <li><a href="calculadoraHipoteca.html">Calculadora de Hipoteca</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
+                <li><a href="calculadoraHipoteca.php">Calculadora de Hipoteca</a></li>
+                <li><a href="ofertas.php">Ofertas</a></li>
             </ul>
         </div>
-          <a href="login.html">Iniciar sesión</a>
+          <a href="login.php">Iniciar sesión</a>
         </nav>
     </div>
     <main class="page-content">

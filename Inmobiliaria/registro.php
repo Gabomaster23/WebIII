@@ -12,17 +12,17 @@
     <header class="nav-head">
       <img src="imgs/logo.png" alt="Inmobiliaria Uriangato" class="logo">
       <nav class="navegacion-principal">
-        <a href="index.html">Inicio</a>
-        <a href="propiedades.html">Propiedades</a>
+        <a href="index.php">Inicio</a>
+        <a href="propiedades.php">Propiedades</a>
         <!-- Contenedor para el menú desplegable -->
         <div class="nav-item">
           <a href="#">Servicios ▾</a>
           <ul class="submenu">
-              <li><a href="calculadoraHipoteca.html">Calculadora de Hipoteca</a></li>
-              <li><a href="ofertas.html">Ofertas</a></li>
+              <li><a href="calculadoraHipoteca.php">Calculadora de Hipoteca</a></li>
+              <li><a href="ofertas.php">Ofertas</a></li>
           </ul>
       </div>
-        <a href="Contacto.html">Contacto</a>
+        <a href="Contacto.php">Contacto</a>
       </nav>
     </header>
   
@@ -85,7 +85,7 @@
                 <button type="submit" class="btn">Registrarse</button>
               </form>
         
-              <p class="register-text">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+              <p class="register-text">¿Ya tienes una cuenta? <a href="login.php">Inicia sesión aquí</a></p>
             </div>
         </div>
     </main>

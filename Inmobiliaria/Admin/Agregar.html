@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Propiedad</title>
+    <link rel="stylesheet" href="css/agregar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="../imgs/logo.png" alt="Inmobiliaria Uriangato">
+            <h2>Inmobiliaria Uriangato</h2>
+            <p>Admin</p>
+        </div>
+        <nav>
+            <a href="../index.html"><i class="fa fa-home"></i> Home</a>
+            <a href="propiedades.html" class="active"><i class="fa fa-building"></i> Propiedades</a>
+            <a href="#" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Contenedor principal -->
+    <main class="main-content">
+        <div class="form-container">
+            <div class="form-header">
+                <img src="../imgs/home.png" alt="User Icon">
+            </div>
+            <h2 class="form-title">Agregar Propiedad</h2> <!-- Nuevo título -->
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <input type="text" placeholder="Título" required>
+                    <input type="text" placeholder="Tipo" required>
+                </div>
+                <div class="form-group full-width">
+                    <textarea placeholder="Descripción" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="number" placeholder="Precio" required>
+                    <input type="text" placeholder="Ubicación" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" placeholder="Ancho (m)" required>
+                    <input type="number" placeholder="Largo (m)" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" placeholder="Área (m²)" required>
+                    <input type="number" placeholder="Habitaciones" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" placeholder="Baños" required>
+                    <select required>
+                        <option value="">Estado</option>
+                        <option value="Disponible">Disponible</option>
+                        <option value="Vendido">Vendido</option>
+                        <option value="Rentado">Rentado</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Registrar Propiedad</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

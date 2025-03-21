@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador - Inmobiliaria</title>
+    <link rel="stylesheet" href="css/propiedades.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <img src="../imgs/logo.png" alt="Inmobiliaria Uriangato">
+            <h2>Inmobiliaria Uriangato</h2>
+            <p>Admin</p>
+        </div>
+        <nav>
+            <a href="../index.html" ><i class="fa fa-home"></i> Home</a>
+            <a href="propiedades.html" class="active"><i class="fa fa-building"></i> Propiedades</a>
+            <a href="#" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+        </nav>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        <header class="top-bar">
+            <input type="text" placeholder="Buscar...">
+            <i class="fa fa-bell"></i>
+            <a href="Agregar.html" class="btn-agregar"> Agregar propiedad</a>
+        </header>
+
+        <section class="lista-propiedades">
+            <h2>Lista de propiedades</h2>
+            <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Ubicación</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="../imgs/casa1.jpg" alt="Casa 1"></td>
+                        <td>Casa 1</td>
+                        <td>Ubicación 1</td>
+                        <td>$1,000,000</td>
+                        <td>Disponible</td>
+                        <td>
+                            <a href="editar.html" class="fa fa-edit" ></a>
+                            <i class="fa fa-trash"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </section>
+    </main>
+
+</body>
+</html>

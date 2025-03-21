@@ -1,0 +1,216 @@
+:root {
+    --azul-oscuro: #244861;
+    --azul-claro: #597B8F;
+    --gris: #9EABBA;
+    --blanco: #ffffff;
+    --fondo: #f4f4f4;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: var(--fondo);
+}
+
+/* ========== Sidebar ========== */
+.sidebar {
+    width: 250px;
+    background: var(--azul-claro);
+    color: var(--blanco);
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+    width: 80px;
+    border-radius: 50%;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.sidebar p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.sidebar nav {
+    width: 100%;
+}
+
+.sidebar nav a {
+    display: block;
+    color: var(--blanco);
+    text-decoration: none;
+    padding: 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar nav a:hover,
+.sidebar nav .active {
+    background: var(--azul-oscuro);
+    border-radius: 5px;
+}
+
+.sidebar .logout {
+    margin-top: auto;
+}
+
+/* ========== Contenido Principal ========== */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    background: var(--blanco);
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top-bar input {
+    padding: 8px;
+    border: 1px solid var(--gris);
+    border-radius: 5px;
+    width: 200px;
+}
+
+.top-bar i {
+    font-size: 20px;
+    color: var(--azul-oscuro);
+    cursor: pointer;
+}
+
+/* ========== Tarjetas del Dashboard ========== */
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Estilos para cada tarjeta */
+.card {
+    background: var(--azul-oscuro);
+    color: var(--blanco);
+    width: 245px;
+    height: 157px;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Contenedor de icono y texto */
+.card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+/* Icono */
+.card i {
+    font-size: 50px;
+}
+
+/* Texto descriptivo */
+.card p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Número alineado abajo a la derecha */
+.card h3 {
+    font-size: 22px;
+    margin: 0;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+}
+
+/* Efecto hover */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .dashboard {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100px;
+        padding: 10px;
+    }
+
+    .sidebar h2,
+    .sidebar p {
+        display: none;
+    }
+
+    .sidebar nav a {
+        justify-content: center;
+        font-size: 14px;
+    }
+
+    .sidebar nav a i {
+        font-size: 20px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card{
+        height:90px ;
+        width: 170px;
+    }
+    .card i {
+        font-size: 30px;
+    }
+    .card p {
+        font-size: 14px;
+    }
+    .card h3{
+        font-size: 18px;
+    }
+}
+

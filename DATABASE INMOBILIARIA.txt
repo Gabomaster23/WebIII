@@ -104,6 +104,16 @@ INSERT INTO propiedades (
 );
 
 
+INSERT INTO multimedia (id_propiedad, tipo, url, fecha_subida) VALUES
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/Principal.png', NOW()),
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/1.png', NOW()),
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/2.png', NOW()),
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/3.png', NOW()),
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/4.png', NOW()),
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/5.png', NOW()),
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/6.png', NOW());
+
+
 
 
 

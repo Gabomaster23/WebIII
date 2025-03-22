@@ -104,6 +104,24 @@ INSERT INTO propiedades (
 );
 
 
+INSERT INTO multimedia (id_propiedad, tipo, url, fecha_subida) VALUES
+(1, 'Imagen', 'http://localhost/WebIII/Inmobiliaria/Casas/Principal.png', NOW()),
+(1, 'Imagen', '/WebIII/Inmobiliaria/Casas/BobEsponja/1.png', NOW()),
+(1, 'Imagen', '/WebIII/Inmobiliaria/Casas/BobEsponja/2.png', NOW()),
+(1, 'Imagen', '/WebIII/Inmobiliaria/Casas/BobEsponja/3.png', NOW()),
+(1, 'Imagen', '/WebIII/Inmobiliaria/Casas/BobEsponja/4.png', NOW()),
+(1, 'Imagen', '/WebIII/Inmobiliaria/Casas/BobEsponja/5.png', NOW()),
+(1, 'Imagen', '/WebIII/Inmobiliaria/Casas/BobEsponja/6.png', NOW());
 
+
+
+INSERT INTO multimedia (id_propiedad, tipo, url, fecha_subida) VALUES
+(2, 'Imagen', '/WebIII/Inmobiliaria/Casas/Omero/principal.png', NOW()),
+(2, 'Imagen', '/WebIII/Inmobiliaria/Casas/Omero/1.png', NOW()),
+(2, 'Imagen', '/WebIII/Inmobiliaria/Casas/Omero/2.png', NOW()),
+(2, 'Imagen', '/WebIII/Inmobiliaria/Casas/Omero/3.png', NOW()),
+(2, 'Imagen', '/WebIII/Inmobiliaria/Casas/Omero/4.png', NOW()),
+(2, 'Imagen', '/WebIII/Inmobiliaria/Casas/Omero/5.png', NOW()),
+(2, 'Imagen', '/WebIII/Inmobiliaria/Casas/Omero/6.png', NOW());
 
 

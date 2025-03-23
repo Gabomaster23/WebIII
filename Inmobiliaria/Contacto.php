@@ -72,4 +72,5 @@
     </main>
 </body>
 <script src="js/general.js"></script>
+<script src="js/Contacto.js"></script>
 </html>

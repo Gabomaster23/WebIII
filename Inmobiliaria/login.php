@@ -65,4 +65,5 @@
     </main>
 </body>
 <script src="js/general.js"></script>
+<script src="js/login.js"></script>
 </html>

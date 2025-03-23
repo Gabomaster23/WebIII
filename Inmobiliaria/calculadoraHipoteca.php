@@ -49,4 +49,5 @@
     </div>
 </body>
 <script src="js/general.js"></script>
+<script src="js/calculadoraHipoteca.js"></script>
 </html>

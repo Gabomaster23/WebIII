@@ -91,4 +91,5 @@
     </main>
 </body>
 <script src="js/general.js"></script>
+<script src="js/registro.js"></script>
 </html>

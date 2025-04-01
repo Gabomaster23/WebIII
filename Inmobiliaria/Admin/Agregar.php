@@ -23,15 +23,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ('$titulo', '$descripcion', '$tipo', '$precio', '$ubicacion', '$ancho', '$largo', '$area', '$num_habitaciones', '$num_banos', '$estacionamiento', '$estado', 1)";
 
     if ($conn->query($sql) === TRUE) {
-        $id = $conn->insert_id; // Obtener ID de la propiedad recién insertada
+        $id = $conn->insert_id; // ID de la propiedad recién insertada
         
-        // Crear la carpeta con el ID
+        // Crear carpeta para la propiedad
         $carpeta = "../Casas/" . $id;
         if (!file_exists($carpeta)) {
             mkdir($carpeta, 0777, true); 
         }
 
-        // Redirigir a propiedades.php
+        // Procesar imágenes
+        if (!empty($_FILES['imagenes']['name'][0])) {
+            $total = count($_FILES['imagenes']['name']);
+            for ($i = 0; $i < $total; $i++) {
+                $tmp_name = $_FILES['imagenes']['tmp_name'][$i];
+                $ext = pathinfo($_FILES['imagenes']['name'][$i], PATHINFO_EXTENSION);
+
+                if ($i == 0) {
+                    $nombre_imagen = "Principal." . $ext;
+                } else {
+                    $nombre_imagen = ($i) . "." . $ext;
+                }
+
+                $ruta_destino = $carpeta . "/" . $nombre_imagen;
+
+                if (move_uploaded_file($tmp_name, $ruta_destino)) {
+                    // Insertar en multimedia
+                    $url = "/WebIII/Inmobiliaria/Casas/" . $id . "/" . $nombre_imagen;
+                    $sql_multimedia = "INSERT INTO multimedia (id_propiedad, tipo, url, fecha_subida) VALUES ($id, 'Imagen', '$url', NOW())";
+                    $conn->query($sql_multimedia);
+                }
+            }
+        }
+
         header("Location: propiedades.php");
         exit();
     } else {
@@ -39,8 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -72,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-header">
                 <img src="../imgs/home.png" alt="User Icon">
             </div>
-            <h2 class="form-title">Agregar Propiedad</h2> <!-- Nuevo título -->
-            <form action="agregar.php" method="POST">
+            <h2 class="form-title">Agregar Propiedad</h2>
+            <form action="agregar.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" name="titulo" placeholder="Título" required>
                     <input type="text" name="tipo" placeholder="Tipo" required>
@@ -104,6 +125,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Vendido">Vendido</option>
                         <option value="Rentado">Rentado</option>
                     </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="imagenes">Subir Imágenes:</label>
+                    <input type="file" name="imagenes[]" multiple accept="image/*" required>
                 </div>
                 <button type="submit" class="submit-btn">Registrar Propiedad</button>
             </form>

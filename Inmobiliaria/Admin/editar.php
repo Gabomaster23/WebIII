@@ -1,5 +1,6 @@
 <?php
-include("../Conexion.php");
+include("Conexion.php");
+require_once("../Datos/DAOPropiedades.php");
 
 // Validar que venga el id
 if (!isset($_GET['id'])) {
@@ -10,15 +11,13 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 // Obtener datos actuales
-$sql = "SELECT * FROM propiedades WHERE id = $id";
-$result = $conn->query($sql);
+$dao = new DAOPropiedades();
+$propiedad = $dao->obtenerPropiedadPorId($id);
 
-if ($result->num_rows != 1) {
+if (!$propiedad) {
     header("Location: propiedades.php");
     exit();
 }
-
-$propiedad = $result->fetch_assoc();
 
 // Actualizar datos si se envía el formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -35,26 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $estacionamiento = $_POST['estacionamiento'];
     $estado = $_POST['estado'];
 
-    $sql_update = "UPDATE propiedades SET 
-        titulo = '$titulo',
-        descripcion = '$descripcion',
-        tipo = '$tipo',
-        precio = '$precio',
-        ubicacion = '$ubicacion',
-        ancho = '$ancho',
-        largo = '$largo',
-        area = '$area',
-        num_habitaciones = '$num_habitaciones',
-        num_banos = '$num_banos',
-        estacionamiento = '$estacionamiento',
-        estado = '$estado'
-        WHERE id = $id";
-
-    if ($conn->query($sql_update) === TRUE) {
+    if ($dao->actualizarPropiedad($id, $titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho, $largo, $area, $num_habitaciones, $num_banos, $estacionamiento, $estado)) {
         header("Location: propiedades.php");
         exit();
     } else {
-        echo "Error al actualizar: " . $conn->error;
+        echo "Error al actualizar la propiedad.";
     }
 }
 ?>
@@ -72,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="../imgs/logo.png" alt="Inmobiliaria Uriangato">
+            <img src="../Vista/imgs/logo.png" alt="Inmobiliaria Uriangato">
             <h2>Inmobiliaria Uriangato</h2>
             <p>Admin</p>
         </div>
@@ -87,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <main class="main-content">
         <div class="form-container">
             <div class="form-header">
-                <img src="../imgs/home.png" alt="User Icon">
+                <img src="../Vista/imgs/home.png" alt="User Icon">
             </div>
             <h2 class="form-title">Editar Propiedad</h2>
             <form action="" method="POST">

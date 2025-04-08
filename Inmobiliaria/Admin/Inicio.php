@@ -1,3 +1,35 @@
+<?php
+require_once '../Datos/conexion.php';
+
+// Tipos posibles y sus iconos correspondientes
+$tipos_posibles = [
+    'Casa' => 'fa-home',
+    'Departamento' => 'fa-city',
+    'Edificio' => 'fa-building',
+    'Bodega' => 'fa-warehouse',
+    'Oficina' => 'fa-briefcase',
+    'Local Comercial' => 'fa-store',
+    'Terreno' => 'fa-map-marked-alt'
+];
+
+// Inicializar cantidades en 0
+$tipos_propiedad = array_fill_keys(array_keys($tipos_posibles), 0);
+
+// Consulta para contar propiedades por tipo
+$sql = "SELECT tipo, COUNT(*) as cantidad FROM propiedades GROUP BY tipo";
+$result = $conn->query($sql);
+
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $tipo = $row['tipo'];
+        if (array_key_exists($tipo, $tipos_propiedad)) {
+            $tipos_propiedad[$tipo] = $row['cantidad'];
+        }
+    }
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +44,7 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="../imgs/logo.png" alt="Inmobiliaria Uriangato">
+            <img src="../Vista/imgs/logo.png" alt="Inmobiliaria Uriangato">
             <h2>Inmobiliaria Uriangato</h2>
             <p>Admin</p>
         </div>
@@ -31,57 +63,18 @@
         </header>
 
         <section class="dashboard">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-home"></i>
-                    <p>Casas</p>
+            <?php foreach ($tipos_propiedad as $tipo => $cantidad): ?>
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa <?= $tipos_posibles[$tipo] ?>"></i>
+                        <p><?= $tipo ?></p>
+                    </div>
+                    <h3><?= $cantidad ?></h3>
                 </div>
-                <h3>100</h3>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-city"></i>
-                    <p>Departamentos</p>
-                </div>
-                <h3>50</h3>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-building"></i>
-                    <p>Edificios</p>
-                </div>
-                <h3>200</h3>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-warehouse"></i>
-                    <p>Bodegas</p>
-                </div>
-                <h3>200</h3>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-briefcase"></i>
-                    <p>Oficinas</p>
-                </div>
-                <h3>100</h3>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-store"></i>
-                    <p>Locales Comerciales</p>
-                </div>
-                <h3>50</h3>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-map-marked-alt"></i>
-                    <p>Terrenos</p>
-                </div>
-                <h3>30</h3>
-            </div>
+            <?php endforeach; ?>
         </section>
     </main>
 
 </body>
 </html>
+

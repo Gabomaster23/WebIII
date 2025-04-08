@@ -1,0 +1,155 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  .page-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh; /* Altura completa para centrar */
+  }
+  
+  
+  .login-container {
+    display: flex;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .login-image {
+    width: 50%;
+    display: none; /* Ocultar en pantallas pequeñas */
+  }
+  
+  .login-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .login-form {
+    width: 100%;
+    padding: 40px;
+    background-color: #ffffff;
+  }
+  
+  .form-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .form-header .logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  .form-header h2 {
+    font-size: 1.5rem;
+    color: #2F4858;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  
+  .password-container {
+    position: relative;
+  }
+  
+  .eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+  }
+  
+  .btn {
+    width: 100%;
+    background-color: #2F4858;
+    color: white;
+    font-weight: bold;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #1D3340;
+  }
+  
+  .register-text {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 20px;
+  }
+  
+  .register-text a {
+    color: #2F4858;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .register-text a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive para mostrar imagen en pantallas grandes */
+  @media (min-width: 768px) {
+    .login-image {
+      display: block;
+    }
+  
+    .login-form {
+      width: 50%;
+    }
+  }
+  /* Estilos para el mensaje de error */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}

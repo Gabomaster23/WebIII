@@ -1,5 +1,7 @@
 <?php
-include("../Conexion.php");
+include("../Datos/Conexion.php");
+require_once '../Modelo/propiedad.php';
+require_once '../Datos/DAOPropiedades.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Capturar datos del formulario
@@ -16,15 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $estacionamiento = $_POST['estacionamiento'];
     $estado = $_POST['estado'];
 
-    // Insertar en la tabla propiedades con id_usuario = 1
-    $sql = "INSERT INTO propiedades 
-    (titulo, descripcion, tipo, precio, ubicacion, ancho, largo, area, num_habitaciones, num_banos, estacionamiento, estado, id_usuario) 
-    VALUES 
-    ('$titulo', '$descripcion', '$tipo', '$precio', '$ubicacion', '$ancho', '$largo', '$area', '$num_habitaciones', '$num_banos', '$estacionamiento', '$estado', 1)";
+    // Crear una instancia del DAO
+    $dao = new DAOPropiedades();
 
-    if ($conn->query($sql) === TRUE) {
-        $id = $conn->insert_id; // ID de la propiedad recién insertada
-        
+    // Insertar la propiedad usando el DAO
+    $id = $dao->agregarPropiedad($titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho, $largo, $area, $num_habitaciones, $num_banos, $estacionamiento, $estado);
+
+    if ($id) {
         // Crear carpeta para la propiedad
         $carpeta = "../Casas/" . $id;
         if (!file_exists($carpeta)) {
@@ -58,10 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: propiedades.php");
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error al agregar la propiedad.";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -76,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="../imgs/logo.png" alt="Inmobiliaria Uriangato">
+            <img src="../Vista/imgs/logo.png" alt="Inmobiliaria Uriangato">
             <h2>Inmobiliaria Uriangato</h2>
             <p>Admin</p>
         </div>
@@ -91,13 +92,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <main class="main-content">
         <div class="form-container">
             <div class="form-header">
-                <img src="../imgs/home.png" alt="User Icon">
+                <img src="../Vista/imgs/home.png" alt="User Icon">
             </div>
             <h2 class="form-title">Agregar Propiedad</h2>
             <form action="agregar.php" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" name="titulo" placeholder="Título" required>
-                    <input type="text" name="tipo" placeholder="Tipo" required>
+                    <select name="tipo" required>
+                        <option value="">Tipo</option>
+                        <option value="Casa">Casa</option>
+                        <option value="Departamento">Departamento</option>
+                        <option value="Bodega">Bodega</option>
+                        <option value="Edificio">Edificio</option>
+                        <option value="Oficina">Oficina</option>
+                        <option value="Local Comercial">Local Comercial</option>
+                        <option value="Terrenos">Terrenos</option>
+                    </select>
                 </div>
                 <div class="form-group full-width">
                     <textarea name="descripcion" placeholder="Descripción" required></textarea>

@@ -12,7 +12,7 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="../imgs/logo.png" alt="Inmobiliaria Uriangato">
+            <img src="../Vista/imgs/logo.png" alt="Inmobiliaria Uriangato">
             <h2>Inmobiliaria Uriangato</h2>
             <p>Admin</p>
         </div>
@@ -45,7 +45,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <?php include("../Conexion.php"); ?>
+                <?php include("../Datos/Conexion.php"); ?>
                 <tbody>
                 <?php
                 $sql = "SELECT * FROM propiedades";

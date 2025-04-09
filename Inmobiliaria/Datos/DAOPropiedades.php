@@ -2,14 +2,9 @@
 require_once 'conexion.php'; 
 require_once '../Modelo/propiedad.php'; 
 
+class DAOPropiedades {
+    private $conexion;
 
-
-class DAOPropiedades{
-    private $conexion; 
-    
-    /**
-     * Permite obtener la conexión a la BD
-     */
     private function conectar() {
         try {
             global $conn;
@@ -18,23 +13,24 @@ class DAOPropiedades{
             die("Error al conectar con la base de datos: " . $e->getMessage());
         }
     }
-    public function agregarPropiedad($titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho,$largo,$area, $num_habitaciones, $num_banos,$estacionamiento,$estado){
+
+    public function agregarPropiedad($titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho, $largo, $area, $num_habitaciones, $num_banos, $estacionamiento, $estado) {
         try {
             $this->conectar();
 
             $sentenciaSQL = $this->conexion->prepare("INSERT INTO propiedades 
-    (titulo, descripcion, tipo, precio, ubicacion, ancho, largo, area, num_habitaciones, num_banos, estacionamiento, estado, id_usuario) 
-    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $sentenciaSQL->execute(array($titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho,$largo,$area, $num_habitaciones, $num_banos,$estacionamiento,$estado,1));
+                (titulo, descripcion, tipo, precio, ubicacion, ancho, largo, area, num_habitaciones, num_banos, estacionamiento, estado, id_usuario) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            // Puedes retornar el ID del usuario insertado si lo necesitas
+            $sentenciaSQL->execute(array($titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho, $largo, $area, $num_habitaciones, $num_banos, $estacionamiento, $estado, 1));
+
             return $this->conexion->insert_id;
         } catch (PDOException $e) {
-            // Manejo de errores
             return false;
         }
     }
-    public function eliminarPropiedad($id){
+
+    public function eliminarPropiedad($id) {
         try {
             $this->conectar();
 
@@ -43,45 +39,65 @@ class DAOPropiedades{
 
             return true;
         } catch (PDOException $e) {
-            // Manejo de errores
             return false;
         }
     }
+
     public function actualizarPropiedad($id, $titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho, $largo, $area, $num_habitaciones, $num_banos, $estacionamiento, $estado) {
         try {
             $this->conectar();
-    
+
             $sentenciaSQL = $this->conexion->prepare("UPDATE propiedades SET 
                 titulo = ?, descripcion = ?, tipo = ?, precio = ?, ubicacion = ?, ancho = ?, largo = ?, area = ?, num_habitaciones = ?, num_banos = ?, estacionamiento = ?, estado = ? 
                 WHERE id = ?");
-    
-            // Ejecutar la consulta con los valores
+
             $sentenciaSQL->execute(array($titulo, $descripcion, $tipo, $precio, $ubicacion, $ancho, $largo, $area, $num_habitaciones, $num_banos, $estacionamiento, $estado, $id));
-    
+
             return true;
-    
         } catch (PDOException $e) {
             echo "Error al actualizar la propiedad: " . $e->getMessage();
             return false;
         }
     }
+
     public function obtenerPropiedadPorId($id) {
         try {
             $this->conectar();
-    
+
             $sentenciaSQL = $this->conexion->prepare("SELECT * FROM propiedades WHERE id = ?");
             $sentenciaSQL->execute(array($id));
-    
+
             $resultado = $sentenciaSQL->get_result();
             return $resultado->fetch_assoc();
-    
         } catch (PDOException $e) {
             echo "Error al obtener la propiedad: " . $e->getMessage();
             return false;
         }
     }
-    
+
+    // ✅ Multimedia
+
+    public function obtenerMultimediaPorPropiedad($idPropiedad) {
+        $this->conectar();
+        $stmt = $this->conexion->prepare("SELECT * FROM multimedia WHERE id_propiedad = ?");
+        $stmt->bind_param("i", $idPropiedad);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function agregarImagen($idPropiedad, $url) {
+        $this->conectar();
+        $stmt = $this->conexion->prepare("INSERT INTO multimedia (id_propiedad, tipo, url) VALUES (?, 'Imagen', ?)");
+        $stmt->bind_param("is", $idPropiedad, $url);
+        return $stmt->execute();
+    }
+
+    public function eliminarImagen($idImagen) {
+        $this->conectar();
+        $stmt = $this->conexion->prepare("DELETE FROM multimedia WHERE id = ?");
+        $stmt->bind_param("i", $idImagen);
+        return $stmt->execute();
+    }
     
 }
-
 ?>

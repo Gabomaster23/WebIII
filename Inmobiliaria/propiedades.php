@@ -3,6 +3,13 @@ require 'conexion.php';
 
 $sql = "SELECT * FROM propiedades WHERE estado = 'Disponible'";
 $result = $conn->query($sql);
+
+$sql = "SELECT * FROM propiedades WHERE descuento IS NOT NULL";
+$resultado = $conn->query($sql);
+$propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +20,7 @@ $result = $conn->query($sql);
     <title>Propiedades</title>
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/propiedades.css">
+    
 </head>
 <body>
     <div class="nav-head">
@@ -113,8 +121,28 @@ $result = $conn->query($sql);
                     </div>
                 </div>
             <?php } ?>
+
+            
         </div>
+        
     </main>
+
+    <?php if (!empty($propiedades_descuento)) : ?>
+        <script>
+            var propiedadesConDescuento = <?php echo json_encode($propiedades_descuento); ?>;
+            var mensaje = "¡Hay propiedades con descuento! Echa un vistazo:\n\n";
+
+            propiedadesConDescuento.forEach(function(propiedad) {
+                mensaje += propiedad.titulo + " - Precio original: $" + propiedad.precio + " MXN - Ahora: $" + propiedad.descuento + " MXN\n";
+            });
+
+            alert(mensaje);
+        </script>
+    <?php endif; ?>
+
+
+
+
 
 </body>
 <script src="js/general.js"></script>

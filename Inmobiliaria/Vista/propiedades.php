@@ -21,6 +21,12 @@ if (!empty($busqueda)) {
 }
 
 $result = $conn->query($sql);
+
+$sql = "SELECT * FROM propiedades WHERE descuento IS NOT NULL";
+$resultado = $conn->query($sql);
+$propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -142,6 +148,22 @@ $result = $conn->query($sql);
             <?php } ?>
         </div>
     </main>
+
+
+    <?php if (!empty($propiedades_descuento)) : ?>
+        <script>
+            var propiedadesConDescuento = <?php echo json_encode($propiedades_descuento); ?>;
+            var mensaje = "¡Hay propiedades con descuento! Echa un vistazo:\n\n";
+
+            propiedadesConDescuento.forEach(function(propiedad) {
+                mensaje += propiedad.titulo + " - Precio original: $" + propiedad.precio + " MXN - Ahora: $" + propiedad.descuento + " MXN\n";
+            });
+
+            alert(mensaje);
+        </script>
+    <?php endif; ?>
+
+
 
     <script>
         // Si la página se recarga (tipo 1 = reload), vaciamos el campo y disparamos el form vacío

@@ -213,4 +213,6 @@ body {
         font-size: 18px;
     }
 }
-
+.bell-container a{
+    text-decoration: none;
+}

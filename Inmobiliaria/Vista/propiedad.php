@@ -92,10 +92,11 @@ while ($row = $result2->fetch_assoc()) {
                     <li>Estacionamiento para <?php echo $propiedad['estacionamiento']; ?> autos</li>
                 </ul>
                 <?php if (isset($_SESSION['user_name'])): ?>
-                    <a href="https://wa.me/4433868406?text=¡Hola!%20Me%20interesa%20contactar%20con%20un%20asesor." class="contact-button" target="_blank">Contactar con un asesor</a>
-                <?php else: ?>
-                    <button class="contact-button" onclick="showModal();">Contactar con un asesor</button>
-                <?php endif; ?>      
+                    <a href="contactar.php?id=<?php echo $id; ?>" class="contact-button">Contactar con un asesor</a>
+<?php else: ?>
+    <button class="contact-button" onclick="showModal();">Contactar con un asesor</button>
+<?php endif; ?>
+  
             </div>
         </section>
 

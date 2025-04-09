@@ -27,6 +27,11 @@ if ($result && $result->num_rows > 0) {
         }
     }
 }
+// Contar los mensajes no respondidos
+$sql = "SELECT COUNT(*) as total_no_respondidos FROM solicitudes_contacto WHERE respondido = 0";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$total_no_respondidos = $row['total_no_respondidos'];
 $conn->close();
 ?>
 
@@ -51,16 +56,24 @@ $conn->close();
         <nav>
             <a href="Inicio.php" class="active"><i class="fa fa-home"></i> Home</a>
             <a href="propiedades.php"><i class="fa fa-building"></i> Propiedades</a>
-            <a href="#" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+            <a href="Mensaje.php" class=""><i class="fa fa-envelope"></i> Mensajes</a>
+            <a href="Mensajes_prop.php" class=""><i class="fa fa-envelope"></i> Mensajes propiedades</a>
+            <a href="../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>
 
     <!-- Contenido principal -->
     <main class="main-content">
-        <header class="top-bar">
-            <input type="text" placeholder="Buscar...">
-            <i class="fa fa-bell"></i>
-        </header>
+    <header class="top-bar">
+    <input type="text" placeholder="Buscar...">
+    <div class="bell-container">
+        <a class="fa fa-bell" href="Mensaje.php"></a>
+        <?php if ($total_no_respondidos > 0): ?>
+            <span class="notification-badge"><?php echo $total_no_respondidos; ?></span>
+        <?php endif; ?>
+    </div>
+</header>
+
 
         <section class="dashboard">
             <?php foreach ($tipos_propiedad as $tipo => $cantidad): ?>

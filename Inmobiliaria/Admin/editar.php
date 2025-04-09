@@ -9,8 +9,6 @@ if (!isset($_GET['id'])) {
 }
 
 $id = $_GET['id'];
-
-// Obtener datos actuales
 $dao = new DAOPropiedades();
 $propiedad = $dao->obtenerPropiedadPorId($id);
 
@@ -19,8 +17,80 @@ if (!$propiedad) {
     exit();
 }
 
-// Actualizar datos si se envía el formulario
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Obtener imágenes
+$imagenes = $dao->obtenerMultimediaPorPropiedad($id);
+
+// Eliminar imagen
+// Eliminar imagen si viene el parámetro
+if (isset($_GET['delete_img'])) {
+    $idImagen = $_GET['delete_img'];
+
+    // Obtener la ruta del archivo
+    $stmt = $conn->prepare("SELECT url FROM multimedia WHERE id = ?");
+    $stmt->bind_param("i", $idImagen);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $imagen = $result->fetch_assoc();
+
+    if ($imagen) {
+        $rutaFisica = $_SERVER['DOCUMENT_ROOT'] . $imagen['url'];
+
+        // Eliminar el archivo físico si existe
+        if (file_exists($rutaFisica)) {
+            unlink($rutaFisica);
+        }
+
+        // Eliminar el registro de la base de datos
+        $dao->eliminarImagen($idImagen);
+    }
+
+    header("Location: editar.php?id=$id");
+    exit();
+}
+
+
+// Subir nueva imagen
+if (isset($_POST['subir_imagen']) && isset($_FILES['nueva_imagen'])) {
+    $rutaTemporal = $_FILES['nueva_imagen']['tmp_name'];
+
+    // Carpeta destino (ruta absoluta para mover archivo)
+    $carpetaDestino = $_SERVER['DOCUMENT_ROOT'] . "/WebIII/Inmobiliaria/Casas/" . $id . "/";
+    // Ruta para guardar en la base de datos
+    $rutaEnBD = "/WebIII/Inmobiliaria/Casas/" . $id . "/";
+
+    // Crear carpeta si no existe
+    if (!is_dir($carpetaDestino)) {
+        mkdir($carpetaDestino, 0777, true);
+    }
+
+    // Obtener el próximo ID de la tabla multimedia
+    $stmt = $conn->prepare("SELECT MAX(id) AS ultimo_id FROM multimedia");
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_assoc();
+    $nuevoId = ($row['ultimo_id'] ?? 0) + 1;
+
+    // Nombre del archivo final (ej: 11.png)
+    $nombreFinal = $nuevoId . ".png";
+
+    // Ruta final para mover el archivo y para la BD
+    $rutaCompletaArchivo = $carpetaDestino . $nombreFinal;
+    $rutaFinalEnBD = $rutaEnBD . $nombreFinal;
+
+    // Mover archivo
+    if (move_uploaded_file($rutaTemporal, $rutaCompletaArchivo)) {
+        $dao->agregarImagen($id, $rutaFinalEnBD);
+        header("Location: editar.php?id=$id");
+        exit();
+    } else {
+        echo "Error al subir la imagen. Verifica permisos o tamaño del archivo.";
+    }
+}
+
+
+
+// Actualizar propiedad
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
     $titulo = $_POST['titulo'];
     $tipo = $_POST['tipo'];
     $descripcion = $_POST['descripcion'];
@@ -69,14 +139,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </nav>
     </aside>
 
-    <!-- Contenedor principal -->
+    <!-- Contenido principal -->
     <main class="main-content">
         <div class="form-container">
             <div class="form-header">
                 <img src="../Vista/imgs/home.png" alt="User Icon">
             </div>
             <h2 class="form-title">Editar Propiedad</h2>
-            <form action="" method="POST">
+
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" name="titulo" value="<?php echo htmlspecialchars($propiedad['titulo']); ?>" required>
                     <input type="text" name="tipo" value="<?php echo htmlspecialchars($propiedad['tipo']); ?>" required>
@@ -108,7 +179,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Rentado" <?php if($propiedad['estado'] == 'Rentado') echo 'selected'; ?>>Rentado</option>
                     </select>
                 </div>
-                <button type="submit" class="submit-btn">Actualizar Propiedad</button>
+
+                <!-- Galería de imágenes -->
+                <h3>Galería de Imágenes</h3>
+                <div class="form-group full-width" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <?php foreach ($imagenes as $img): ?>
+                        <div style="position: relative;">
+                            <img src="<?php echo $img['url']; ?>" alt="Imagen" style="height: 100px; border: 1px solid #ccc;">
+                            <a href="?id=<?php echo $id; ?>&delete_img=<?php echo $img['id']; ?>" 
+                               onclick="return confirm('¿Eliminar esta imagen?');"
+                               style="position: absolute; top: 0; right: 0; background: red; color: white; padding: 2px 6px;">X</a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Subir nueva imagen -->
+                <div class="form-group full-width">
+                    <label>Agregar nueva imagen:</label>
+                    <input type="file" name="nueva_imagen" >
+                    <button type="submit" name="subir_imagen" class="submit-btn">Subir Imagen</button>
+                </div>
+
+                <button type="submit" name="actualizar" class="submit-btn">Actualizar Propiedad</button>
             </form>
         </div>
     </main>

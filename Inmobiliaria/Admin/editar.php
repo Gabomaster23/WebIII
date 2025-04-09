@@ -133,7 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
         <nav>
             <a href="Inicio.php"><i class="fa fa-home"></i> Home</a>
             <a href="propiedades.php" class="active"><i class="fa fa-building"></i> Propiedades</a>
-            <a href="#" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+            <a href="Mensaje.php" class=""><i class="fa fa-envelope"></i> Mensajes</a>
+            <a href="Mensajes_prop.php" class=""><i class="fa fa-envelope"></i> Mensajes propiedades</a>
+            <a href="../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>
 

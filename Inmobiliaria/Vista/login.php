@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['contrasena'];
 
     // Preparar la consulta SQL
-    $sql = "SELECT nombre, contrasena FROM usuarios WHERE email = ?";
+    $sql = "SELECT id, nombre, contrasena, tipo FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($sql);
 
     // Verificar si la consulta se preparó correctamente
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Verificar si se encontró el usuario
         if ($stmt->num_rows > 0) {
             // Vincular las variables para el resultado
-            $stmt->bind_result($db_name, $db_password);
+            $stmt->bind_result($db_id,$db_name, $db_password, $db_tipo);
 
             // Recuperar los datos del usuario
             $stmt->fetch();
@@ -36,7 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($db_password === $password) {
                 // Iniciar sesión y guardar el nombre del usuario
                 $_SESSION['user_name'] = $db_name;
-                header("Location: index.php"); // Redirigir al usuario a la página principal
+                $_SESSION['user_id'] = $db_id;
+                if($db_tipo==="admin"){
+                    header("Location: ../Admin/inicio.php"); // Redirigir al usuario al admin
+                }else{
+                    header("Location: index.php"); // Redirigir al usuario a la página principal
+                }
                 exit();
             } else {
                 $error_message = "Usuario o contraseña incorrectos.";

@@ -76,7 +76,7 @@ $propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
         <div class="properties">
             <!-- Propiedades Estáticas -->
-            <div class="property-card">
+            <!--<div class="property-card">
                 <img src="imgs/casa1.JPG" alt="Casa Solara">
                 <div class="info">
                     <div class="category">Casa</div>
@@ -125,7 +125,7 @@ $propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
                         <span>🚽 3</span>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <!-- Propiedades desde la BD -->
             <?php while ($row = $result->fetch_assoc()) { ?>

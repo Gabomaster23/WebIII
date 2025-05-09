@@ -42,6 +42,7 @@ $result = $conn->query($sql);
             <a href="propiedades.php" class=""><i class="fa fa-building"></i> Propiedades</a>
             <a href="Mensaje.php" class=""><i class="fa fa-building"></i> Mensajes</a>
             <a href="Mensajes_prop.php" class="active"><i class="fa fa-envelope"></i> Mensajes propiedades</a>
+            <a href="Ventas.php" class=""><i class="fa fa-dollar-sign"></i>Ventas</a>
             <a href="../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>

@@ -2,7 +2,10 @@
 
 session_start();
 
+
+
 include '../Datos/conexion.php';
+include 'tcpdf/tcpdf.php'; // Incluye la librería TCPDF
 
 // Validar si recibimos id por GET
 if (!isset($_GET['id'])) {
@@ -93,9 +96,11 @@ while ($row = $result2->fetch_assoc()) {
                 </ul>
                 <?php if (isset($_SESSION['user_name'])): ?>
                     <a href="contactar.php?id=<?php echo $id; ?>" class="contact-button">Contactar con un asesor</a>
-<?php else: ?>
-    <button class="contact-button" onclick="showModal();">Contactar con un asesor</button>
-<?php endif; ?>
+                <?php else: ?>
+                    <button class="contact-button" onclick="showModal();">Contactar con un asesor</button>
+                <?php endif; ?>
+                <a href="generar_pdf.php?id=<?php echo $id; ?>" class="contact-button" style="background-color:#444;">Descargar en PDF</a>
+
   
             </div>
         </section>

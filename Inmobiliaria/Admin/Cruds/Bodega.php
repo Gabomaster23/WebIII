@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador - Inmobiliaria</title>
-    <link rel="stylesheet" href="css/propiedades.css">
+    <link rel="stylesheet" href="../css/propiedades.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
@@ -12,18 +12,18 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="../Vista/imgs/logo.png" alt="Inmobiliaria Uriangato">
+            <img src="../../Vista/imgs/logo.png" alt="Inmobiliaria Uriangato">
             <h2>Inmobiliaria Uriangato</h2>
             <p>Admin</p>
         </div>
         <nav>
-            <a href="Inicio.php" ><i class="fa fa-home"></i> Home</a>
-            <a href="propiedades.php" class="active"><i class="fa fa-building"></i> Propiedades</a>
-            <a href="Mensaje.php" class=""><i class="fa fa-envelope"></i> Mensajes</a>
-            <a href="Mensajes_prop.php" class=""><i class="fa fa-envelope"></i> Mensajes propiedades</a>
-            <a href="Ventas.php" class=""><i class="fa fa-dollar-sign"></i>Ventas</a>
-            <a href="Reportes.php" class=""><i class="fa fa-chart-bar"></i>Reportes</a>
-            <a href="../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
+            <a href="../Inicio.php" ><i class="fa fa-home"></i> Home</a>
+            <a href="../propiedades.php" class="active"><i class="fa fa-building"></i> Propiedades</a>
+            <a href="../Mensaje.php" class=""><i class="fa fa-envelope"></i> Mensajes</a>
+            <a href="../Mensajes_prop.php" class=""><i class="fa fa-envelope"></i> Mensajes propiedades</a>
+            <a href="../Ventas.php" class=""><i class="fa fa-dollar-sign"></i>Ventas</a>
+            <a href="../Reportes.php" class=""><i class="fa fa-chart-bar"></i>Reportes</a>
+            <a href="../../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>
 
@@ -36,7 +36,7 @@
         </header>
 
         <section class="lista-propiedades">
-            <h2>Lista de propiedades</h2>
+            <h2>Lista de Bodegas</h2>
             <div class="table-container">
             <table>
                 <thead>
@@ -49,10 +49,10 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <?php include("../Datos/Conexion.php"); ?>
+                <?php include("../../Datos/Conexion.php"); ?>
                 <tbody class="tabla-propiedades">
                 <?php
-                $sql = "SELECT * FROM propiedades";
+                $sql = "SELECT * FROM propiedades WHERE tipo = 'Bodega'";
                 $result = $conn->query($sql);
 
                 while($row = $result->fetch_assoc()) {

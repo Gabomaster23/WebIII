@@ -3,7 +3,7 @@ session_start();
 require '../Datos/conexion.php';
 
 // Buscar todas las propiedades con descuento
-$sql = "SELECT * FROM propiedades WHERE descuento IS NOT NULL";
+$sql = "SELECT * FROM propiedades WHERE descuento IS NOT NULL AND estado = 'Disponible'" ;
 $resultado = $conn->query($sql);
 $propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
@@ -43,7 +43,7 @@ foreach ($propiedades_descuento as $prop) {
     <div class="nav-head">
         <img src="imgs/logo.png" alt="" class="logo">
         <nav class="navegacion-principal contenedor">
-            <a href="index.php" class="active">Inicio</a>
+            <a href="../index.php" class="active">Inicio</a>
             <a href="propiedades.php">Propiedades</a>
             <div class="nav-item">
                 <a href="#">Servicios ▾</a>
@@ -62,14 +62,14 @@ foreach ($propiedades_descuento as $prop) {
         <div class="offers">
             <?php if (!empty($propiedades_descuento)) : ?>
                 <?php foreach ($propiedades_descuento as $prop) : ?>
-                    <div class="offer-card">
+                    <div class="offer-card" data-id="<?php echo $prop['id']; ?>">
                         <img src="imgs/discount.png" alt="Descuento" class="discount-badge">
                         <h3>
                             <?php echo htmlspecialchars($prop['titulo']); ?> -
-                            ¡<?php echo $prop['precio'] > 0 ? round((1 - $prop['descuento'] / $prop['precio']) * 100) : 0; ?>% OFF!
+                            ¡<?php echo $prop['precio'] > 0 ? round(($prop['descuento'] / $prop['precio']) * 100) : 0; ?>% OFF!
                         </h3>
                         <p>Precio anterior: $<?php echo number_format($prop['precio'], 2); ?> MXN</p>
-                        <p>Precio nuevo: $<?php echo number_format($prop['descuento'], 2); ?> MXN</p>
+                        <p>Precio nuevo: $<?php echo number_format(($prop['precio']-$prop['descuento']), 2); ?> MXN</p>
 
                         <!-- Mostrar imagen principal o imagen por defecto -->
                         <?php if (!empty($imagenes[$prop['id']])) : ?>
@@ -84,5 +84,14 @@ foreach ($propiedades_descuento as $prop) {
             <?php endif; ?>
         </div>
     </main>
+    <script>
+document.querySelectorAll('.offer-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        window.location.href = `propiedad.php?id=${id}`;
+    });
+});
+</script>
+
 </body>
 </html>

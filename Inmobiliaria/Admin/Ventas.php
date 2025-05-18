@@ -7,7 +7,7 @@ $resultadoClientes = $conn->query($sqlClientes);
 $usuarios = $resultadoClientes->fetch_all(MYSQLI_ASSOC);
 
 // Obtener propiedades
-$sqlPropiedades = "SELECT id, titulo, precio FROM propiedades WHERE estado ='Disponible' ORDER BY titulo ASC";
+$sqlPropiedades = "SELECT id, titulo, precio, tipo FROM propiedades WHERE estado ='Disponible' ORDER BY titulo ASC";
 $resultadoPropiedades = $conn->query($sqlPropiedades);
 $propiedades = $resultadoPropiedades->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -41,6 +41,7 @@ $propiedades = $resultadoPropiedades->fetch_all(MYSQLI_ASSOC);
         <a href="Mensaje.php"><i class="fa fa-envelope"></i> Mensajes</a>
         <a href="Mensajes_prop.php"><i class="fa fa-envelope"></i> Mensajes propiedades</a>
         <a href="Ventas.php" class="active"><i class="fa fa-dollar-sign"></i> Ventas</a>
+        <a href="Reportes.php" class=""><i class="fa fa-chart-bar"></i>Reportes</a>
         <a href="../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
     </nav>
 </aside>
@@ -64,9 +65,10 @@ $propiedades = $resultadoPropiedades->fetch_all(MYSQLI_ASSOC);
         <select id="propiedad" name="propiedad" required onchange="actualizarMonto()">
             <option value="">Seleccione una propiedad</option>
             <?php foreach ($propiedades as $propiedad): ?>
-                <option value="<?= $propiedad['id'] ?>" data-precio="<?= $propiedad['precio'] ?>">
-                    <?= htmlspecialchars($propiedad['titulo']) ?>
-                </option>
+                <option value="<?= $propiedad['id'] ?>" data-precio="<?= $propiedad['precio'] ?>" data-tipo="<?= $propiedad['tipo'] ?>">
+    <?= htmlspecialchars($propiedad['titulo']) ?>
+</option>
+
             <?php endforeach; ?>
         </select>
 
@@ -74,6 +76,7 @@ $propiedades = $resultadoPropiedades->fetch_all(MYSQLI_ASSOC);
         <input type="text" id="monto_mostrar" disabled>
 
         <input type="hidden" id="monto" name="monto">
+        <input type="hidden" id="tipo_propiedad" name="tipo_propiedad">
 
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" name="fecha" required>
@@ -84,18 +87,27 @@ $propiedades = $resultadoPropiedades->fetch_all(MYSQLI_ASSOC);
             <option value="Finalizada">Finalizada</option>
             <option value="Cancelada">Cancelada</option>
         </select>
+        
 
         <button type="submit"><i class="fa fa-plus"></i> Registrar Venta</button>
     </form>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const hoy = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha').setAttribute('max', hoy);
+});
     function actualizarMonto() {
-        const propiedadSelect = document.getElementById('propiedad');
-        const selectedOption = propiedadSelect.options[propiedadSelect.selectedIndex];
-        const precio = selectedOption.getAttribute('data-precio') || 0;
-        document.getElementById('monto').value = precio;
-        document.getElementById('monto_mostrar').value = '$' + parseFloat(precio).toFixed(2);
-    }
+    const propiedadSelect = document.getElementById('propiedad');
+    const selectedOption = propiedadSelect.options[propiedadSelect.selectedIndex];
+    const precio = selectedOption.getAttribute('data-precio') || 0;
+    const tipo = selectedOption.getAttribute('data-tipo') || '';
+
+    document.getElementById('monto').value = precio;
+    document.getElementById('monto_mostrar').value = '$' + parseFloat(precio).toFixed(2);
+    document.getElementById('tipo_propiedad').value = tipo;
+}
+
     </script>
 
     <!-- Tabla de Ventas -->
@@ -132,8 +144,7 @@ $propiedades = $resultadoPropiedades->fetch_all(MYSQLI_ASSOC);
                 <td>$<?= number_format($row['monto'], 2) ?></td>
                 <td><?= $row['estado'] ?></td>
                 <td>
-                    <a href="editar_venta.php?id=<?= $row['id'] ?>">Editar</a> |
-                    <a href="eliminar_venta.php?id=<?= $row['id'] ?>" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                    <a href="editar_venta.php?id=<?= $row['id'] ?>">Editar</a>
                 </td>
             </tr>
             <?php endwhile; ?>

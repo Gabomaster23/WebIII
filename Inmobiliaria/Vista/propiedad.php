@@ -50,7 +50,7 @@ while ($row = $result2->fetch_assoc()) {
     <div class="nav-head">
         <img src="imgs/logo.png" alt="" class="logo">
         <nav class="navegacion-principal contenedor">
-            <a href="index.php">Inicio</a>
+            <a href="../index.php">Inicio</a>
             <a href="propiedades.php">Propiedades</a>
             <div class="nav-item">
                 <a href="#">Servicios ▾</a>
@@ -84,7 +84,7 @@ while ($row = $result2->fetch_assoc()) {
             <div class="info">
                 <h1><?php echo $propiedad['titulo']; ?></h1>
                 <p>📍 <?php echo $propiedad['ubicacion']; ?></p>
-                <h2>$<?php echo number_format($propiedad['precio'], 2); ?></h2>
+                <h2>$<?php echo number_format($propiedad['precio']-$propiedad['descuento'], 2); ?></h2>
                 <h3>Descripción:</h3>
                 <p><?php echo $propiedad['descripcion']; ?></p>
                 <h3>Características:</h3>
@@ -100,7 +100,8 @@ while ($row = $result2->fetch_assoc()) {
                     <button class="contact-button" onclick="showModal();">Contactar con un asesor</button>
                 <?php endif; ?>
                 <a href="generar_pdf.php?id=<?php echo $id; ?>" class="contact-button" style="background-color:#444;">Descargar en PDF</a>
-
+                <br><br>
+                <a href="calculadoraHipoteca.php?precio=<?php echo $propiedad['precio'] - $propiedad['descuento']; ?>" class="contact-button">Calcular Hipoteca</a>
   
             </div>
         </section>

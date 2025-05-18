@@ -49,7 +49,7 @@ $propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
                     <li><a href="ofertas.php">Ofertas</a></li>
                 </ul>
             </div>
-            <a href="index.php">Inicio</a>
+            <a href="../index.php">Inicio</a>
             <a href="contacto.php">Contacto</a>
             <?php if (isset($_SESSION['user_name'])): ?>
                 <div class="nav-item">
@@ -138,7 +138,7 @@ $propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
                             <a href="propiedad.php?id=<?php echo $row['id']; ?>" class="expand-icon">↗</a>
                         </div>
                         <p><?php echo $row['descripcion']; ?></p>
-                        <div class="price">$<?php echo number_format($row['precio'], 2); ?> MXN</div>
+                        <div class="price">$<?php echo number_format(($row['precio']- $row['descuento']), 2); ?> MXN</div>
                         <div class="details">
                             <span>🛏️ <?php echo $row['num_habitaciones'] ?? 0; ?></span>
                             <span>🚽 <?php echo $row['num_banos'] ?? 0; ?></span>
@@ -156,7 +156,7 @@ $propiedades_descuento = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
             var mensaje = "¡Hay propiedades con descuento! Echa un vistazo:\n\n";
 
             propiedadesConDescuento.forEach(function(propiedad) {
-                mensaje += propiedad.titulo + " - Precio original: $" + propiedad.precio + " MXN - Ahora: $" + propiedad.descuento + " MXN\n";
+                mensaje += propiedad.titulo + " - Precio original: $" + propiedad.precio + " MXN - Ahora: $" +(propiedad.precio - propiedad.descuento) + " MXN\n";
             });
 
             alert(mensaje);

@@ -1,6 +1,11 @@
 <?php
 // Iniciar la sesión para acceder a las variables de sesión
 session_start();
+if (isset($_GET['precio'])) {
+    $precio = floatval($_GET['precio']); 
+} else {
+    $precio = "";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +20,7 @@ session_start();
     <div class="nav-head">
         <img src="imgs/logo.png" alt="" class="logo">
         <nav class="navegacion-principal contenedor">
-            <a href="index.php">Inicio</a>
+            <a href="../index.php">Inicio</a>
             <a href="propiedades.php">Propiedades</a>
             <!-- Contenedor para el menú desplegable -->
             <div class="nav-item">
@@ -44,7 +49,7 @@ session_start();
                 <h2>Calcula tu hipoteca</h2>
                 <p>Ingresa los montos</p>
                 <label for="precio">¿Cuánto cuesta la casa que quieres?</label>
-                <input type="number" id="precio" placeholder="Ingresa el monto">
+                <input type="number" id="precio" placeholder="Ingresa el monto" value="<?php echo $precio; ?>">
                 
                 <label for="enganche">¿Cuánto te gustaría dejar de enganche?</label>
                 <input type="number" id="enganche" placeholder="Ingresa el monto">

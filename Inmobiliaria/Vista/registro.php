@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <header class="nav-head">
     <img src="imgs/logo.png" alt="Inmobiliaria Uriangato" class="logo" />
     <nav class="navegacion-principal">
-      <a href="index.php">Inicio</a>
+      <a href="../index.php">Inicio</a>
       <a href="propiedades.php">Propiedades</a>
       <div class="nav-item">
         <a href="#">Servicios ▾</a>

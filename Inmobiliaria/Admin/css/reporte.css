@@ -1,0 +1,177 @@
+:root {
+    --azul-oscuro: #244861;
+    --azul-claro: #597B8F;
+    --gris: #9EABBA;
+    --blanco: #ffffff;
+    --fondo: #f4f4f4;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: var(--fondo);
+    min-height: 100vh;
+}
+
+/* ========== Sidebar ========== */
+.sidebar {
+    width: 250px;
+    background: var(--azul-claro);
+    color: var(--blanco);
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+    width: 80px;
+    border-radius: 50%;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.sidebar p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.sidebar nav {
+    width: 100%;
+}
+
+.sidebar nav a {
+    display: block;
+    color: var(--blanco);
+    text-decoration: none;
+    padding: 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar nav a:hover,
+.sidebar nav .active {
+    background: var(--azul-oscuro);
+    border-radius: 5px;
+}
+
+.sidebar .logout {
+    margin-top: auto;
+}
+
+/* ========== Main Content ========== */
+.main-content {
+    flex: 1; /* Ocupa todo el espacio restante al lado del sidebar */
+    padding: 40px;
+    background-color: #f7f9fb;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.main-content h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ========== Filtros de Fecha ========== */
+.filtros-fechas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.filtro {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.filtro label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #444;
+}
+
+.filtro input {
+    padding: 8px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    min-width: 200px;
+}
+
+/* ========== Botón de Reporte ========== */
+.boton-reporte {
+    margin-left: auto;
+    padding: 10px 20px;
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.boton-reporte:hover {
+    background-color: #001f4d;
+}
+
+/* ========== Gráfica ========== */
+#graficaVentas {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* ========== Resumen ========== */
+#resumen {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+#resumen p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#ventasTotales,
+#numeroVentas {
+    font-weight: bold;
+    color: #003366;
+}
+
+/* ========== Ventas por Sección ========== */
+#ventasPorSeccion {
+    min-width: 250px;
+}
+
+#ventasPorSeccion p {
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #003366;
+}

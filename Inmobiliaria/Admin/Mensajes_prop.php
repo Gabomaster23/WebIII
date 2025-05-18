@@ -40,9 +40,10 @@ $result = $conn->query($sql);
         <nav>
             <a href="Inicio.php" ><i class="fa fa-home"></i> Home</a>
             <a href="propiedades.php" class=""><i class="fa fa-building"></i> Propiedades</a>
-            <a href="Mensaje.php" class=""><i class="fa fa-building"></i> Mensajes</a>
+            <a href="Mensaje.php" class=""><i class="fa fa-envelope"></i> Mensajes</a>
             <a href="Mensajes_prop.php" class="active"><i class="fa fa-envelope"></i> Mensajes propiedades</a>
             <a href="Ventas.php" class=""><i class="fa fa-dollar-sign"></i>Ventas</a>
+            <a href="Reportes.php" class=""><i class="fa fa-chart-bar"></i>Reportes</a>
             <a href="../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>
@@ -50,7 +51,7 @@ $result = $conn->query($sql);
     <!-- Contenido Principal -->
     <main class="main-content">
         <header class="top-bar">
-            <input type="text" placeholder="Buscar...">
+            <input type="text" placeholder="Buscar..." id="busquedaInput">
             <i class="fa fa-bell"></i>
         </header>
 
@@ -68,7 +69,7 @@ $result = $conn->query($sql);
                     </tr>
                 </thead>
                 <?php include("../Datos/Conexion.php"); ?>
-                <tbody>
+                <tbody class="tabla-mensajes">
     <?php
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
@@ -103,6 +104,20 @@ echo "<td>
         </div>
         </section>
     </main>
+<script>
+    document.getElementById("busquedaInput").addEventListener("input", function () {
+        const filtro = this.value.toLowerCase();
+        const filas = document.querySelectorAll(".tabla-mensajes tr");
 
+        filas.forEach(fila => {
+            const textoFila = fila.innerText.toLowerCase();
+            if (textoFila.includes(filtro)) {
+                fila.style.display = "";
+            } else {
+                fila.style.display = "none";
+            }
+        });
+    });
+</script>
 </body>
 </html>

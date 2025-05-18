@@ -16,7 +16,7 @@ $tipos_posibles = [
 $tipos_propiedad = array_fill_keys(array_keys($tipos_posibles), 0);
 
 // Consulta para contar propiedades por tipo
-$sql = "SELECT tipo, COUNT(*) as cantidad FROM propiedades GROUP BY tipo";
+$sql = "SELECT tipo, COUNT(*) as cantidad FROM propiedades GROUP BY tipo ";
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {
@@ -59,6 +59,7 @@ $conn->close();
             <a href="Mensaje.php" class=""><i class="fa fa-envelope"></i> Mensajes</a>
             <a href="Mensajes_prop.php" class=""><i class="fa fa-envelope"></i> Mensajes propiedades</a>
             <a href="Ventas.php" class=""><i class="fa fa-dollar-sign"></i>Ventas</a>
+            <a href="Reportes.php" class=""><i class="fa fa-chart-bar"></i>Reportes</a>
             <a href="../Datos/logout.php" class="logout"><i class="fa fa-sign-out-alt"></i> Logout</a>
         </nav>
     </aside>
@@ -66,7 +67,7 @@ $conn->close();
     <!-- Contenido principal -->
     <main class="main-content">
     <header class="top-bar">
-    <input type="text" placeholder="Buscar...">
+    <input type="text" placeholder="Buscar..." id="busquedaInput">
     <div class="bell-container">
         <a class="fa fa-bell" href="Mensaje.php"></a>
         <?php if ($total_no_respondidos > 0): ?>
@@ -76,18 +77,45 @@ $conn->close();
 </header>
 
 
-        <section class="dashboard">
-            <?php foreach ($tipos_propiedad as $tipo => $cantidad): ?>
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fa <?= $tipos_posibles[$tipo] ?>"></i>
-                        <p><?= $tipo ?></p>
-                    </div>
-                    <h3><?= $cantidad ?></h3>
-                </div>
-            <?php endforeach; ?>
-        </section>
+       <section class="dashboard">
+    <?php foreach ($tipos_propiedad as $tipo => $cantidad): ?>
+        <div class="card propiedad-card" data-tipo="<?= strtolower($tipo) ?>">
+            <div class="card-header">
+                <i class="fa <?= $tipos_posibles[$tipo] ?>"></i>
+                <p><?= $tipo ?></p>
+            </div>
+            <h3><?= $cantidad ?></h3>
+        </div>
+    <?php endforeach; ?>
+</section>
+
     </main>
+    <script>
+document.getElementById("busquedaInput").addEventListener("input", function () {
+    const query = this.value.toLowerCase();
+    const cards = document.querySelectorAll(".propiedad-card");
+
+    cards.forEach(card => {
+        const tipo = card.getAttribute("data-tipo");
+        if (tipo.includes(query)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".propiedad-card");
+
+        cards.forEach(function(card) {
+            card.addEventListener("click", function() {
+                const tipo = card.getAttribute("data-tipo"); // por ejemplo "casa"
+                const pagina ="http://localhost/WEBIII/Inmobiliaria/Admin/Cruds/"+ tipo + ".php"; // genera "casas.php", "departamentos.php", etc.
+                window.location.href = pagina;
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

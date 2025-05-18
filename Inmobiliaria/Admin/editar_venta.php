@@ -87,28 +87,32 @@ $conn->close();
 </head>
 <body>
     <h2>Editar Venta</h2>
-    <form method="POST">
-        <label>Cliente:</label>
-        <input type="text" name="cliente" disabled  value="<?= htmlspecialchars($venta['cliente_nombre']) ?>" required readonly><br>
+<form method="POST">
+    <label>Cliente:</label>
+    <input type="text" disabled value="<?= htmlspecialchars($venta['cliente_nombre']) ?>"><br>
+    <input type="hidden" name="cliente" value="<?= $venta['cliente'] ?>">
 
-        <label>Propiedad:</label>
-        <input type="text" name="propiedad" disabled value="<?= htmlspecialchars($venta['propiedad_titulo']) ?>" required readonly><br>
+    <label>Propiedad:</label>
+    <input type="text" disabled value="<?= htmlspecialchars($venta['propiedad_titulo']) ?>"><br>
+    <input type="hidden" name="propiedad" value="<?= $venta['propiedad'] ?>">
 
-        <label>Fecha:</label>
-        <input type="date" name="fecha"  value="<?= $venta['fecha'] ?>" required><br>
+    <label>Fecha:</label>
+    <input type="date" name="fecha" value="<?= $venta['fecha'] ?>" required><br>
 
-        <label>Monto:</label>
-        <input type="number" name="monto" disabled step="0.01" value="<?= $venta['monto'] ?>" required><br>
+    <label>Monto:</label>
+    <input type="number" disabled step="0.01" value="<?= $venta['monto'] ?>"><br>
+    <input type="hidden" name="monto" value="<?= $venta['monto'] ?>">
 
-        <label>Estado:</label>
-        <select name="estado">
-            <option value="En proceso" <?= $venta['estado'] == 'En proceso' ? 'selected' : '' ?>>En proceso</option>
-            <option value="Finalizada" <?= $venta['estado'] == 'Finalizada' ? 'selected' : '' ?>>Finalizada</option>
-            <option value="Cancelada" <?= $venta['estado'] == 'Cancelada' ? 'selected' : '' ?>>Cancelada</option>
-        </select><br><br>
+    <label>Estado:</label>
+    <select name="estado">
+        <option value="En proceso" <?= $venta['estado'] == 'En proceso' ? 'selected' : '' ?>>En proceso</option>
+        <option value="Finalizada" <?= $venta['estado'] == 'Finalizada' ? 'selected' : '' ?>>Finalizada</option>
+        <option value="Cancelada" <?= $venta['estado'] == 'Cancelada' ? 'selected' : '' ?>>Cancelada</option>
+    </select><br><br>
 
-        <button type="submit">Guardar cambios</button>
-    </form>
+    <button type="submit">Guardar cambios</button>
+</form>
+
     <br>
     <a href="Ventas.php">Volver</a>
 </body>
